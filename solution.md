@@ -21,10 +21,13 @@ We'll use Kafka to ingest data from different sources.
 ## Kafka Producer for Ad Impressions (JSON)
 
 from kafka import KafkaProducer
+
 import json
+
 #Configure Kafka producer
 producer = KafkaProducer(bootstrap_servers='localhost:9092',
                          value_serializer=lambda v: json.dumps(v).encode('utf-8'))
+                         
 #Example ad impression data
 ad_impression = {
     "ad_creative_id": "123",
@@ -32,6 +35,7 @@ ad_impression = {
     "timestamp": "2023-04-01T12:00:00Z",
     "website": "example.com"
 }
+
 #Send ad impression data to Kafka
 producer.send('ad_impressions', ad_impression)
 producer.flush()
