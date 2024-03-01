@@ -3,7 +3,9 @@ Given the complexity and breadth of the task, I'll outline a Python-based soluti
 # Step 1: Setting Up the Environment
 
 ### Install Python Packages:
+```bash
 pip install kafka-python pyspark cassandra-driver
+```
 ### Configure Kafka:
 Download and install Kafka from the official website.
 Start Zookeeper and Kafka server.
@@ -63,11 +65,11 @@ with open('clicks.csv', 'r') as file:
 producer.flush()
 ```
 
-### Step 3: Data Processing
+# Step 3: Data Processing
 
 We'll use Spark Streaming to process data from Kafka.
 
-Spark Streaming Application
+## Spark Streaming Application
 
 ```python
 from pyspark import SparkContext
@@ -93,14 +95,15 @@ ssc.start()
 ssc.awaitTermination()
 ```
 
-Step 4: Data Storage and Query Performance
+# Step 4: Data Storage and Query Performance
 
 For storing processed data, we'll use Cassandra.
 
-Cassandra Data Model
+## Cassandra Data Model
+
 Design your data model based on your query patterns. For example, if you frequently query ad impressions by user ID, ensure your table is optimized for such queries.
 
-Writing Data to Cassandra
+## Writing Data to Cassandra
 
 After processing the data in Spark, you can write the results to Cassandra.
 
@@ -120,9 +123,9 @@ processed_data.write \
     .save()
 ```
  
-Step 5: Error Handling and Monitoring
+# Step 5: Error Handling and Monitoring
 
-Logging Setup (monitoring.py)
+## Logging Setup (monitoring.py)
 
 ```python
 import logging
@@ -146,7 +149,8 @@ def setup_logging():
 
     return logger
  ```   
-Alerting Mechanism (monitoring.py)
+
+## Alerting Mechanism (monitoring.py)
 
 For simplicity, we'll use email alerts. You'll need to configure your email settings.
 
@@ -166,7 +170,7 @@ def send_alert(subject, message):
         print(f"Failed to send alert: {e}")
 ```
      
-Integrating Error Handling and Monitoring
+## Integrating Error Handling and Monitoring
 
 In your data ingestion, processing, and storage scripts, use the logger to log information, warnings, and errors. For example, in ingestion.py:
 
