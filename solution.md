@@ -46,6 +46,7 @@ producer.flush()
 
 For CSV data, you might need to parse the CSV file and send each record to Kafka. This example assumes you have a CSV file named clicks.csv.
 
+```python
 import csv
 from kafka import KafkaProducer
 
@@ -60,6 +61,7 @@ with open('clicks.csv', 'r') as file:
         producer.send('clicks_conversions', row)
 
 producer.flush()
+```
 
 ### Step 3: Data Processing
 
@@ -67,6 +69,7 @@ We'll use Spark Streaming to process data from Kafka.
 
 Spark Streaming Application
 
+```python
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
@@ -88,6 +91,7 @@ kafka_stream.pprint()
 # Start the computation
 ssc.start()
 ssc.awaitTermination()
+```
 
 Step 4: Data Storage and Query Performance
 
@@ -100,6 +104,7 @@ Writing Data to Cassandra
 
 After processing the data in Spark, you can write the results to Cassandra.
 
+```python
 from pyspark.sql import SparkSession
 
 # Initialize SparkSession
@@ -113,11 +118,13 @@ processed_data.write \
     .format("org.apache.spark.sql.cassandra") \
     .options(table="processed_data", keyspace="ad_tech") \
     .save()
-    
+```
+ 
 Step 5: Error Handling and Monitoring
 
 Logging Setup (monitoring.py)
 
+```python
 import logging
 import logging.handlers
 
@@ -138,11 +145,12 @@ def setup_logging():
     logger.addHandler(handler)
 
     return logger
-    
+ ```   
 Alerting Mechanism (monitoring.py)
 
 For simplicity, we'll use email alerts. You'll need to configure your email settings.
 
+```python
 import smtplib
 
 def send_alert(subject, message):
@@ -156,11 +164,13 @@ def send_alert(subject, message):
         print("Alert sent successfully.")
     except Exception as e:
         print(f"Failed to send alert: {e}")
-        
+```
+     
 Integrating Error Handling and Monitoring
 
 In your data ingestion, processing, and storage scripts, use the logger to log information, warnings, and errors. For example, in ingestion.py:
 
+```python
 import json
 import random
 import time
@@ -198,4 +208,4 @@ def simulate_data_ingestion():
 
 if __name__ == "__main__":
     simulate_data_ingestion()
-
+```
