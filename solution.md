@@ -1,55 +1,53 @@
 Given the complexity and breadth of the task, I'll outline a Python-based solution that addresses each of the case study requirements. This solution will be conceptual and focus on key components rather than a fully operational system due to the limitations of this platform. The solution will involve using Apache Kafka for data ingestion, Apache Spark for data processing, and Apache Cassandra for data storage. For simplicity, we'll focus on the Python code for data ingestion and processing.
 
-Step 1: Setting Up the Environment
+### Step 1: Setting Up the Environment
 
-Install Python Packages:
+# Install Python Packages:
 pip install kafka-python pyspark cassandra-driver
-Configure Kafka:
+# Configure Kafka:
 Download and install Kafka from the official website.
 Start Zookeeper and Kafka server.
-Configure Spark:
+# Configure Spark:
 Download and install Spark from the official website.
 Ensure Spark is configured to work with Kafka.
-Configure Cassandra:
+# Configure Cassandra:
 Download and install Cassandra from the official website.
 Start Cassandra server.
 
-Step 2: Data Ingestion
+### Step 2: Data Ingestion
+
 We'll use Kafka to ingest data from different sources.
 
-Kafka Producer for Ad Impressions (JSON)
+## Kafka Producer for Ad Impressions (JSON)
 
 from kafka import KafkaProducer
 import json
-
-# Configure Kafka producer
+#Configure Kafka producer
 producer = KafkaProducer(bootstrap_servers='localhost:9092',
                          value_serializer=lambda v: json.dumps(v).encode('utf-8'))
-
-# Example ad impression data
+#Example ad impression data
 ad_impression = {
     "ad_creative_id": "123",
     "user_id": "456",
     "timestamp": "2023-04-01T12:00:00Z",
     "website": "example.com"
 }
-
-# Send ad impression data to Kafka
+#Send ad impression data to Kafka
 producer.send('ad_impressions', ad_impression)
 producer.flush()
 
-Kafka Producer for Clicks/Conversions (CSV)
+## Kafka Producer for Clicks/Conversions (CSV)
 
 For CSV data, you might need to parse the CSV file and send each record to Kafka. This example assumes you have a CSV file named clicks.csv.
 
 import csv
 from kafka import KafkaProducer
 
-# Configure Kafka producer
+#Configure Kafka producer
 producer = KafkaProducer(bootstrap_servers='localhost:9092',
                          value_serializer=lambda v: json.dumps(v).encode('utf-8'))
 
-# Read CSV file and send each record to Kafka
+#Read CSV file and send each record to Kafka
 with open('clicks.csv', 'r') as file:
     reader = csv.DictReader(file)
     for row in reader:
@@ -57,7 +55,7 @@ with open('clicks.csv', 'r') as file:
 
 producer.flush()
 
-Step 3: Data Processing
+### Step 3: Data Processing
 
 We'll use Spark Streaming to process data from Kafka.
 
