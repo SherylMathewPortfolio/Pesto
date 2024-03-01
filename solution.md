@@ -20,6 +20,7 @@ We'll use Kafka to ingest data from different sources.
 
 ## Kafka Producer for Ad Impressions (JSON)
 
+```python
 from kafka import KafkaProducer
 
 import json
@@ -39,6 +40,7 @@ ad_impression = {
 #Send ad impression data to Kafka
 producer.send('ad_impressions', ad_impression)
 producer.flush()
+```
 
 ## Kafka Producer for Clicks/Conversions (CSV)
 
