@@ -7,14 +7,14 @@ pip install kafka-python pyspark cassandra-driver
 ### Configure Kafka:
 Download and install Kafka from the official website.
 Start Zookeeper and Kafka server.
-#### Configure Spark:
+### Configure Spark:
 Download and install Spark from the official website.
 Ensure Spark is configured to work with Kafka.
-#### Configure Cassandra:
+### Configure Cassandra:
 Download and install Cassandra from the official website.
 Start Cassandra server.
 
-### Step 2: Data Ingestion
+# Step 2: Data Ingestion
 
 We'll use Kafka to ingest data from different sources.
 
